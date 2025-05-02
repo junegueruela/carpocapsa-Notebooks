@@ -255,7 +255,7 @@ def calcularModeloSimple():
         
         # Le añadimos la incidencia de la semana pasada y la anterior para emular un time series
         for i in range(1,7):
-            dfM[f'num_vuelos_{i}'] = dfM['numVuelos'].shift(i).fillna(0)
+            dfM[f'num_vuelos_{i}'] = dfM['numVuelos'].shift(i-1).fillna(0)
         
         dfMerged= pd.merge_asof(df, dfM, on=['fecha'], direction='backward', tolerance=pd.Timedelta(days=7)) 
         #dfMerged=dfMerged.drop(['Estacion','dias_grado'],axis=1)
@@ -357,7 +357,7 @@ def calcularModeloMunicipio(municipio,fecha_prediccion,estimar='N'):
         
         # Le añadimos la incidencia de la semana pasada y la anterior para emular un time series
         for i in range(1,7):
-            dfM[f'num_vuelos_{i}'] = dfM['numVuelos'].shift(i).fillna(0)
+            dfM[f'num_vuelos_{i}'] = dfM['numVuelos'].shift(i-1).fillna(0)
         
         dfMerged= pd.merge_asof(df_municipio, dfM, on=['fecha'], direction='backward', tolerance=pd.Timedelta(days=7)) 
         #dfMerged=dfMerged.drop(['Estacion','dias_grado'],axis=1)
